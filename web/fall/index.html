@@ -1,0 +1,109 @@
+<style>
+  .box {
+    width: 50px;
+    height: 50px;
+    background: lightblue;
+    border-radius: 50%;
+    
+    position: relative;
+    left: 0;
+    bottom: -300;
+ 
+    -webkit-animation: flipInY 4s linear infinite;
+    animation: flipInY 4s linear infinite;
+  }
+ 
+  .box-alt {
+    -webkit-animation-delay: 3s;
+    animation-delay: 3s;
+  }
+ 
+  @-webkit-keyframes flipInY {
+     0% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    transition-timing-function: ease-in;
+    opacity: 0;
+  }
+ 
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    transition-timing-function: ease-in;
+  }
+ 
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1;
+  }
+ 
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  }
+ 
+  100% {
+    transform: perspective(400px);
+  }
+}
+ 
+ 
+</style>
+<html>
+<head>
+<title></title>
+</head>
+<body bgcolor="lightblue">
+<embed src="song.mp3" width="70" height="45" align="left" hidden="true" autostart="true" loop="True"></embed>
+    <div class="box"><img src="kot.png"></div>
+    <center><img src="elka.gif"></center>
+<script type="text/javascript">
+var count = 50;
+var flake = new Array("flake1.gif", "flake2.gif", "flake3.gif",
+    "flake4.gif", "flake5.gif");
+var Y = new Array();
+var X = new Array();
+var Speed = new Array();
+var Step = new Array();
+var Xstep = new Array();
+var Height = document.body.scrollHeight;
+var Width = document.body.scrollWidth;
+
+for (i=0; i<count; i++) {
+    Pic="image/" + flake[Math.floor(Math.random()*flake.length)];
+    document.write('<img id="snow'+i+'" src="'+Pic+'" style="position:absolute;">');
+}
+
+for (i=0; i<count; i++){
+    Y[i] = Math.round(Math.random()*Height);
+    X[i] = Math.round(Math.random()*Width)-90;
+    Speed[i] = Math.random()*5+2;
+    Xstep[i] = 0;
+    Step[i] = Math.random()*0.1+0.05;
+}
+
+function fall(){
+var Height = document.body.scrollHeight;
+var Width = document.body.scrollWidth;
+for (i=0; i<count; i++) {
+ sx = Speed[i]*Math.cos(Xstep[i]);
+
+ if (X[i]+sx>Width-89) X[i] -= sx;
+
+ X[i] += sx;
+ Y[i] += Speed[i]*Math.sin(Math.PI/2);
+
+ if (Y[i]>Height-60) {
+    Y[i] = 0;
+    X[i] = Math.random()*Width - 89;
+    Step[i] = Math.random()*0.1 + 0.05;
+    Speed[i] = Math.random()*5 + 2;
+ }
+
+ document.getElementById("snow" + i).style.left = X[i] + "px";
+ document.getElementById("snow" + i).style.top = Y[i] + "px";
+ Xstep[i] += Step[i];
+}
+setTimeout("fall()", 50);
+}
+fall();
+</script>
+</body>
+</html>
